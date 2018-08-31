@@ -2,5 +2,6 @@
 <buildpath>
 	<buildpathentry kind="con" path="org.eclipse.ldt.ExecutionEnvironmentContainer/lua/5.2"/>
 	<buildpathentry kind="src" path="src"/>
+	<buildpathentry kind="src" path="packagemanager"/>
 	<buildpathentry external="true" kind="lib" path="D:/Opencomputers/lib"/>
 </buildpath>

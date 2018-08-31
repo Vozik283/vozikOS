@@ -1,0 +1,51 @@
+NAME
+  pacman - package manager for openos
+  
+
+SYNOPSIS
+  pacman list [filter] [-i] [-n] [-o]
+  pacman info <package>
+  pacman install [-f] <package>
+  pacman update <package>
+  pacman uninstall <package> [-s]
+
+DESCRIPTION
+  The pacman provides programs, from now on called "packages", for you to download and install easily.
+
+OPTIONS
+  list
+    Returns list of all available packages.
+  [filter]
+    Shows only packages with a specific filter.
+  -i
+    Shows only installed packages.
+  -n
+    Shows only not installed packages.
+  -o
+    Shows only obsolete packages.
+  
+  info
+    Shows a package information.
+    
+  install
+    Install a package.
+  -f  
+    Force install. It overrides all installed files if exist.
+    
+  update
+    Update a package to a new version if a new version is available.
+    
+  uninstall
+    Unistall a package.
+  -s
+    Setting files will not be removed.
+
+EXAMPLES
+  pacman list
+    Returns list of all available packages..
+
+  pacman install package
+    Install package with name "package". The package name must be unique.
+    
+  pacman uninstall package
+    Uninstall package with name "package".
