@@ -1,8 +1,9 @@
-local unicode = require("unicode")
+
 
 local function test(n, p, ...)
-  checkArg(1, n, "string")
-  print(...)
+print(string.gsub("master/vozikOS/packagemanager/","^(.-)/.+$","%1"))
+print(string.gsub("master/vozikOS/packagemanager/","^.-/(.-)/?$","%1"))
+
 end
 
 local function main()
