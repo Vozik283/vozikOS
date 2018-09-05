@@ -30,6 +30,8 @@ OPTIONS
   install
     Install a package.
   -f  
+    Force install. It overrides all installed files if exist (File marked as "?" are skipped.).
+  -F  
     Force install. It overrides all installed files if exist.
     
   update
@@ -37,8 +39,6 @@ OPTIONS
     
   uninstall
     Unistall a package.
-  -s
-    Setting files will not be removed.
 
 EXAMPLES
   pacman list

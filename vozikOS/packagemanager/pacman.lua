@@ -1,4 +1,4 @@
-local pacmanApi = require("lib.pacmanapi")
+local pacmanApi = require("pacmanapi")
 local shell = require("shell")
 local unicode = require("unicode")
 local component = require("component")
@@ -42,11 +42,11 @@ end
 
 local function listPackages(filter, installed, notInstalled, obsolate)
   local w, h = gpu.getResolution()
-  local result, packages, reason = pcall(pacmanApi.listPackages, filter, installed, notInstalled, obsolate)
+  local result, packages = pcall(pacmanApi.listPackages, filter, installed, notInstalled, obsolate)
 
   if not result or not packages then
     io.stderr:write("Loading package failed.\n")
-    if reason then io.stderr:write(reason) end
+    if packages then io.stderr:write(packages .. "\n") end
     return
   end
 
@@ -81,22 +81,64 @@ local function listPackages(filter, installed, notInstalled, obsolate)
   end
 end
 
-local function install(packageName, forceInstall)
-  local result, reason = pcall(pacmanApi.install, packageName, forceInstall)
+local function install(packageName, forceInstall, fullForceInstall)
+  local result, reason = pcall(pacmanApi.install, packageName, forceInstall, fullForceInstall)
 
   if not result then
     io.stderr:write("Installation failed.\n")
-    if reason then io.stderr:write(reason) end
+    if reason then io.stderr:write(reason .. "\n") end
     return
   end
+end
+
+local function uninstall(packageName)
+  local result, reason = pcall(pacmanApi.uninstall, packageName)
+
+  if not result then
+    io.stderr:write("Uninstall failed.\n")
+    if reason then io.stderr:write(reason .. "\n") end
+    return
+  end
+end
+
+local function update(packageName)
+  local result, reason = pcall(pacmanApi.update, packageName)
+
+  if not result then
+    io.stderr:write("Update failed.\n")
+    if reason then io.stderr:write(reason .. "\n") end
+    return
+  end
+end
+
+local function info(packageName)
+  local result, infoMessage = pcall(pacmanApi.info, packageName)
+
+  if not result then
+    io.stderr:write("Info failed.\n")
+    if infoMessage then io.stderr:write(infoMessage .. "\n") end
+    return
+  end
+  
+  print(infoMessage)
 end
 
 if action == "list" then
   local filter = args[2]
   listPackages(filter, options.i, options.n, options.o)
+elseif action == "info" then
+  local packageName = args[2]
+  info(packageName)
 elseif action == "install" then
   local packageName = args[2]
-  install(packageName, options.f)
+  install(packageName, options.f, options.F)
+elseif action == "uninstall" then
+  local packageName = args[2]
+  uninstall(packageName)
+elseif action == "update" then
+  local packageName = args[2]
+  update(packageName)
 else
-  io.stderr:write("Unknown options.\n")
+  io.stderr:write("Unknown option.\n")
+  io.stderr:write("Write \"man pacman\" for help.\n")
 end
