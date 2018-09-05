@@ -157,7 +157,7 @@ end
 
 local function fileDownloadInternal(serverFilePath, localFilePath, installedFile)
   print(string.format("Download %s starting...", serverFilePath))
-  local result, response, reason = pcall(wget, "-q", serverFilePath, localFilePath)
+  local result, response, reason = pcall(wget, "-qf", serverFilePath, localFilePath)
 
   if not result or not response then
     error(string.format("File %s can not be downloaded: %s", serverFilePath, reason))
