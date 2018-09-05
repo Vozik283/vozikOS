@@ -326,7 +326,7 @@ function pacmanApi.install(packageName, forceInstall, fullForceInstall)
 
   print(string.format("Installing package [%s] is starting...", packageName))
   installInternal(packageName, forceInstall, fullForceInstall, false)
-  print(String.format("Package [%s] is successfully installed.", packageName))
+  print(string.format("Package [%s] is successfully installed.", packageName))
 end
 
 function pacmanApi.uninstall(packageName)
