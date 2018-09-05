@@ -15,7 +15,7 @@ end
 
 getInternet()
 
-local result, response, reason = pcall(wget, "-q", "https://git.io/fA4ZU")
+local result, response, reason = pcall(wget, "-f", "https://raw.githubusercontent.com/Vozik283/vozikOS/master/vozikOS/packagemanager/lib/pacmanapi.lua")
 
 if not result or not response then
   error(string.format("File %s can not be downloaded: %s", "https://git.io/fA4ZU", reason))
@@ -23,7 +23,7 @@ end
 
 local pacmanApi = require("pacmanapi")
 
-local result, reason = pcall(pacmanApi.install, packageName, false, true)
+local result, reason = pcall(pacmanApi.install, 'pacman', false, true)
 
 if not result then
   io.stderr:write("Installation failed.\n")
