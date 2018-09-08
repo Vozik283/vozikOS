@@ -2,6 +2,7 @@ local shell = require("shell")
 local component = require("component")
 local userapi = require("userapi")
 local userroles = require("userroles")
+local userstatuses = require("userstatuses")
 local unicode = require("unicode")
 local term = require("term")
 local text = require("text")
@@ -70,7 +71,7 @@ local function listUsers()
       print(string.rep(unicode.char(0x0336), w))
     end
 
-    print(string.format(" %-25.25s   %-10s   %-10s", userName, user.role, user.status))
+    print(string.format(" %-25.25s   %-10s   %-10s", userName, userroles[user.role], userstatuses[user.status]))
     row = row + 1
 
     if row >= maxRows then
@@ -109,7 +110,7 @@ end
 local function removeUser(userName)
   print(string.format("Removing user %s ...", userName))
 
-  local result, reason = pcall(userapi.removeUser, userName, password, role)
+  local result, reason = pcall(userapi.removeUser, userName)
 
   if not result then
     io.stderr:write("Removing user failed.\n")

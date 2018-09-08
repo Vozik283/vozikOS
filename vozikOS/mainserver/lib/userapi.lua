@@ -69,11 +69,15 @@ function userapi.createUser(userName, password, role)
     error(string.format("User %s already exists.", userName))
   end
   
+  if not userroles[role] then
+    error(string.format("Invalid user role %s.", role))
+  end
+  
   user = {}
   user.name = userName
   user.password = getPasswordHash(password)
-  user.role = role
-  user.status = userstatuses[userstatuses.created]
+  user.role = userroles[role]
+  user.status = userstatuses.created
 
   users[userName] = user
 
@@ -122,13 +126,13 @@ function userapi.logIn(userName, password)
 
   if isPasswordValid(userName, password, users) then
     local user = userapi.getUserInfo(userName, users)
-    user.status = userstatuses[userstatuses.login]
+    user.status = userstatuses.login
   end
 end
 
 function userapi.logOut(userName)
   local user = userapi.getUserInfo(userName)
-  user.status = userstatuses[userstatuses.logout]
+  user.status = userstatuses.logout
 end
 
 function userapi.canUse(userName)
