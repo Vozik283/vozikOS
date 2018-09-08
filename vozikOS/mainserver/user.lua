@@ -84,6 +84,23 @@ local function listUsers()
   end
 end
 
+local function getUserRolesList()
+  local roles = {}
+  local index = 1
+  
+  while true do
+    local role = userroles[index]
+    
+    if not role then
+      break
+    else
+      table.insert(roles, role)
+    end
+  end
+  
+  return roles
+end
+
 local function addUser(userName)
   checkArg(1, userName, "string")
   
@@ -93,7 +110,7 @@ local function addUser(userName)
   local password = text.trim(term.read(nil, false, nil, "*"))
   print("")
   term.write("Role: ")
-  local role = text.trim(term.read(userroles, false, nil, nil))
+  local role = text.trim(term.read(getUserRolesList(), false, nil, nil))
   print("")
 
   local result, reason = pcall(userapi.createUser, userName, password, role)
