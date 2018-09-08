@@ -15,6 +15,21 @@ if not term.isAvailable() then
   return
 end
 
+local function getGpu()
+  if not component.isAvailable("gpu") then
+    io.stderr:write("This program requires a graphics cards to run.\n")
+    return false
+  end
+
+  gpu = component.gpu
+
+  return true
+end
+
+if not getGpu() then
+  return
+end
+
 local function tableLength(table)
   local count = 0
 
