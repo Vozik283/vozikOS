@@ -90,9 +90,10 @@ local function getUserRolesList()
   
   while true do
     local role = userroles[index]
+    index = index + 1
     
     if not role then
-      break
+      return roles
     else
       table.insert(roles, role)
     end
@@ -110,7 +111,8 @@ local function addUser(userName)
   local password = text.trim(term.read(nil, false, nil, "*"))
   print("")
   term.write("Role: ")
-  local role = text.trim(term.read(getUserRolesList(), false, nil, nil))
+  local history = getUserRolesList()
+  local role = text.trim(term.read(history, false, nil, nil))
   print("")
 
   local result, reason = pcall(userapi.createUser, userName, password, role)
