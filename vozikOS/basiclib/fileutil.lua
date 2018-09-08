@@ -28,6 +28,11 @@ end
 
 function fileutil.saveDataFile(datafolderPath, fileName, content)
   local dataFilePath = fs.concat(datafolderPath, fileName)
+  
+  if not fs.exists(datafolderPath) then
+    print(string.format("Folder %s is created.", datafolderPath))
+    fs.makeDirectory(datafolderPath)
+  end
 
   local file, reason = io.open(dataFilePath, "wb")
   if not file then
