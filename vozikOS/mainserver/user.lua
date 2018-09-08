@@ -70,7 +70,7 @@ local function listUsers()
       print(string.rep(unicode.char(0x0336), w))
     end
 
-    print(string.format(" %-25.25s   %-10s   %-10s", userName, user.role, user.status))
+    print(string.format(" %-25.25s   %-10s   %-10s", userName, user.role, userroles[user.status]))
     row = row + 1
 
     if row >= maxRows then
