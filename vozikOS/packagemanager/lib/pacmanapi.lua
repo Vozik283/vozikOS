@@ -283,7 +283,7 @@ local function installInternal(packageName, forceInstall, fullForceInstall, upda
     print(string.format("Package [%s] has dependencies - Checking if all dependencies are installed...", packageName))
 
     for _, dependence in pairs(package.dependencies) do
-      if not installedPackages[dependence] then
+      if not update and not installedPackages[dependence] then
         print(string.format("Package [%s] is not installed.", dependence))
         pacmanApi.install(dependence, forceInstall, fullForceInstall)
       elseif update and installedPackages[dependence].status == "Obsolate" then
