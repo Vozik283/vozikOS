@@ -59,7 +59,7 @@ end
 function userapi.createUser(userName, password, role)
   checkArg(1, userName, "string")
   checkArg(2, password, "string")
-  checkArg(3, role, "number")
+  checkArg(3, role, "string")
 
   local users = userapi.getUserList()
 

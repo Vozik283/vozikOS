@@ -5,6 +5,7 @@ local userroles = require("userroles")
 local unicode = require("unicode")
 local term = require("term")
 local text = require("text")
+local keyboard = require("keyboard")
 
 local gpu
 
@@ -98,7 +99,7 @@ local function addUser(userName)
 
   if not result then
     io.stderr:write("Creating user failed.\n")
-    if users then io.stderr:write(reason .. "\n") end
+    if reason then io.stderr:write(reason .. "\n") end
     return
   end
   
@@ -112,7 +113,7 @@ local function removeUser(userName)
 
   if not result then
     io.stderr:write("Removing user failed.\n")
-    if users then io.stderr:write(reason .. "\n") end
+    if reason then io.stderr:write(reason .. "\n") end
     return
   end
   
