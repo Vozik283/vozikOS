@@ -1,0 +1,30 @@
+NAME
+  User manager
+  
+SYNOPSIS
+  user add <user>
+  user remove <user>
+  user list
+
+DESCRIPTION
+  The application for user management.
+
+OPTIONS
+  list
+    Returns list of all known users.
+  
+  add
+    For creating a new user. Password and Role will be required in the next steps.
+    
+  remove
+    It removes a user from system.
+
+EXAMPLES
+  user list
+    Returns list of all available packages..
+
+  user add tonda
+    It creates user "tonda".
+    
+  user remove pepa
+    it removes user "pepa" from system.
