@@ -13,7 +13,7 @@ local function getData()
     error("This program requires an data card to run.")
   end
 
-  return require("data")
+  return component.data
 end
 
 local data = getData()

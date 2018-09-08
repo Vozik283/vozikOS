@@ -3,6 +3,7 @@ local userapi = require("userapi")
 local userroles = require("userroles")
 local unicode = require("unicode")
 local term = require("term")
+local text = require("text")
 
 local gpu
 

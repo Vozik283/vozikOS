@@ -2,6 +2,7 @@ local pacmanApi = require("pacmanapi")
 local shell = require("shell")
 local unicode = require("unicode")
 local component = require("component")
+local computer = require("computer")
 local term = require("term")
 local keyboard = require("keyboard")
 
@@ -89,6 +90,9 @@ local function install(packageName, forceInstall, fullForceInstall)
     if reason then io.stderr:write(reason .. "\n") end
     return
   end
+  
+  os.sleep(3)
+  computer.shutdown(true)
 end
 
 local function uninstall(packageName)
@@ -99,6 +103,9 @@ local function uninstall(packageName)
     if reason then io.stderr:write(reason .. "\n") end
     return
   end
+  
+  os.sleep(3)
+  computer.shutdown(true)
 end
 
 local function update(packageName)
@@ -109,6 +116,9 @@ local function update(packageName)
     if reason then io.stderr:write(reason .. "\n") end
     return
   end
+  
+  os.sleep(3)
+  computer.shutdown(true)
 end
 
 local function info(packageName)
