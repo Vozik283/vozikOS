@@ -68,7 +68,8 @@ function userapi.createUser(userName, password, role)
   if user then
     error(string.format("User %s already exists.", userName))
   end
-
+  
+  user = {}
   user.name = userName
   user.password = getPasswordHash(password)
   user.role = role
