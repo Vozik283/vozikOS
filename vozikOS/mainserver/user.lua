@@ -1,4 +1,5 @@
 local shell = require("shell")
+local component = require("component")
 local userapi = require("userapi")
 local userroles = require("userroles")
 local unicode = require("unicode")
