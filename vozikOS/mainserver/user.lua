@@ -73,8 +73,10 @@ local function addUser(userName)
   print(string.format("Adding user %s ...", userName))
   term.write("Password: ")
   local password = text.trim(term.read(nil, false, nil, "*"))
+  print("")
   term.write("Role: ")
   local role = text.trim(term.read(userroles, false, nil, nil))
+  print("")
 
   local result, reason = pcall(userapi.createUser, userName, password, role)
 

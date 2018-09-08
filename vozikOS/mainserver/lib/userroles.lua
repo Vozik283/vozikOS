@@ -1,7 +1,7 @@
 local userRoles = {
-  [0] = "admin",  
-  [1] = "operator",
-  [2] = "host"
+  [1] = "admin",  
+  [2] = "operator",
+  [3] = "host"
 }
 
 do

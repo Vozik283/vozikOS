@@ -1,7 +1,7 @@
 local userStatuses = {
-  [0] = "created",  
-  [1] = "login",
-  [2] = "logout"
+  [1] = "created",  
+  [2] = "login",
+  [3] = "logout"
 }
 
 do
