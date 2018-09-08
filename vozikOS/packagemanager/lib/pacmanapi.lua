@@ -277,14 +277,16 @@ local function installInternal(packageName, forceInstall, fullForceInstall, upda
     error(string.format("Package [%s] is already installed.", packageName))
   end
 
-  local installedPackages = readDataFile(datafolderPath, installedPackagesFileName)
+  --local installedPackages = readDataFile(datafolderPath, installedPackagesFileName)
 
   if package.dependencies and not isEmpty(package.dependencies) then
     print(string.format("Package [%s] has dependencies - Checking if all dependencies are installed...", packageName))
 
     for _, dependence in pairs(package.dependencies) do
-      local dependencePackage = installedPackages[dependence]
-      if not dependencePackage then
+      local packagesDependence = pacmanApi.listPackages(dependence)
+      local dependencePackage = packagesDependence[dependence]
+      
+      if not dependencePackage or dependencePackage.status == "Not Installe" then
         print(string.format("Package [%s] is not installed.", dependence))
         pacmanApi.install(dependence, forceInstall, fullForceInstall)
       elseif dependencePackage.status == "Obsolate" then
@@ -316,6 +318,7 @@ local function installInternal(packageName, forceInstall, fullForceInstall, upda
 
   local installedPackages = readDataFile(datafolderPath, installedPackagesFileName)
   package.installedFile = installedFile
+  package.status = "Installed"
   installedPackages[packageName] = package
   saveDataFile(datafolderPath, installedPackagesFileName, installedPackages)
 end
@@ -399,7 +402,7 @@ function pacmanApi.info(packageName)
   end
 
   result = result .. "\n"
-  
+
   return result
 end
 
