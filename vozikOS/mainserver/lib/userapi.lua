@@ -77,10 +77,10 @@ function userapi.createUser(userName, password, role)
 
   users[userName] = user
 
-  local result, reason = pcall(fileutil.saveDataFile, workingDirectory, users)
+  local result, reason = pcall(fileutil.saveDataFile, workingDirectory, usersDB, users)
 
   if not result then
-    error("Error while trying to save to file " .. usersDB)
+    error("Error while trying to save to file " .. usersDB .. ". \n" .. reason)
   end
 end
 
@@ -97,7 +97,7 @@ function userapi.changeUserPassword(userName, oldPasspord, newPassword)
 
     users[userName] = user
 
-    local result, reason = pcall(fileutil.saveDataFile, workingDirectory, users)
+    local result, reason = pcall(fileutil.saveDataFile, workingDirectory, usersDB, users)
   else
     error("Old password is not correct.")
   end
@@ -109,7 +109,7 @@ function userapi.removeUser(userName)
 
   users[userName] = nil
 
-  local result, reason = pcall(fileutil.saveDataFile, workingDirectory, users)
+  local result, reason = pcall(fileutil.saveDataFile, workingDirectory, usersDB, users)
 end
 
 
