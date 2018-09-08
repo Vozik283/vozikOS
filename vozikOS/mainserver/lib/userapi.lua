@@ -73,7 +73,7 @@ function userapi.createUser(userName, password, role)
   user.name = userName
   user.password = getPasswordHash(password)
   user.role = role
-  user.status = userstatuses.created
+  user.status = userstatuses[userstatuses.created]
 
   users[userName] = user
 
@@ -122,13 +122,13 @@ function userapi.logIn(userName, password)
 
   if isPasswordValid(userName, password, users) then
     local user = userapi.getUserInfo(userName, users)
-    user.status = userstatuses.login
+    user.status = userstatuses[userstatuses.login]
   end
 end
 
 function userapi.logOut(userName)
   local user = userapi.getUserInfo(userName)
-  user.status = userstatuses.logout
+  user.status = userstatuses[userstatuses.logout]
 end
 
 function userapi.canUse(userName)
