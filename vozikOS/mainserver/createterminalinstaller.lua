@@ -114,7 +114,7 @@ end
 
 
 getFileSystem()
-fs.setLabel("TerminalInstaller")
+diskDriver.setLabel("TerminalInstaller")
 
 local serverConfig = {}
 serverConfig.address = modem.address
