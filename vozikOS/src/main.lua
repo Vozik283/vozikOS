@@ -27,12 +27,22 @@ local function testa(b)
   b[123]=5
 end
 
-local function main()
-test(1, 2, 3)
-print(isEmpty({1}))
+local function splitByChunk(text, chunkSize)
+    local subStrings = {}    
+    local chunkIndex = 1
+    
+    for index=1, text:len(), chunkSize do
+        subStrings[chunkIndex] = text:sub(index, index + chunkSize - 1)
+        chunkIndex = chunkIndex + 1
+    end
+    return subStrings
+end
 
-local b = {}
-testa(b)
-print(b[123])
+local function main()
+  local t = "012345678911"
+  local st = splitByChunk("012345678911", 5)
+for i,v in ipairs(st) do
+   print(i, v)
+end
 end
 main()
