@@ -1,4 +1,5 @@
 local component = require("component")
+local event = require("event")
 
 local fileserverapi = {}
 
@@ -47,9 +48,7 @@ local function filedownload(senderAddress, port, url)
   local data = getFileContent(url)
 
   local maxPacketSize = modem.maxPacketSize() - 100
-  local dataSize = string.len(maxPacketSize)
-  
-  print(senderAddress)
+  local dataSize = string.len(data)
 
   if dataSize > maxPacketSize then
     local chunks, numberOfChunks = splitByChunk(data, maxPacketSize)
@@ -66,7 +65,6 @@ local function filedownload(senderAddress, port, url)
       modem.send(senderAddress, port, "CHUNK_DOWNLOAD", chunkIndex, chunks[chunkIndex])
     end
   else
-    print("one file")
     modem.send(senderAddress, port, "FILE_DOWNLOAD", data)
   end
 end

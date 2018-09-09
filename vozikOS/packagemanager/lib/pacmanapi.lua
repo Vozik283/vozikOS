@@ -175,7 +175,7 @@ local function fileDownloadInternal(serverFilePath, localFilePath, installedFile
     end
   else
     local content = getFileContent(serverFilePath)
-    fileutil.saveDataFile(localFilePath, installedFile, content)
+    fileutil.saveDataFile(fs.path(localFilePath), getFileName(localFilePath), content)
   end
 
   table.insert(installedFile, localFilePath)

@@ -61,14 +61,11 @@ function fileutil.downloadRemoteFile(url)
     local mainServer = serverConfig["mainServer"]
 
     modem.send(mainServer.address, serverports.fileServer, "DOWNLOAD", url)
-    print(mainServer.address, serverports.fileServer, "DOWNLOAD", url)
   else
     modem.broadcast(serverports.fileServer, "DOWNLOAD", url)
   end
 
-  local eventName, receiverAddress, senderAddress, port, distance, command, data = event.pull(20, "modem_message", nil, nil, nil, serverports.fileServer)
-
-  print(eventName, receiverAddress, senderAddress, port, distance, command, data)
+  local eventName, receiverAddress, senderAddress, port, distance, command, data = event.pull(20, "modem_message", nil, nil, serverports.fileServer)
 
   local fileContent
 
