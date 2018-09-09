@@ -39,6 +39,8 @@ local function splitByChunk(text, chunkSize)
 end
 
 local function main()
+print(type({}))
+for i=1,10 do print(i) end
   local t = "012345678911"
   local st = splitByChunk("012345678911", 5)
 for i,v in ipairs(st) do

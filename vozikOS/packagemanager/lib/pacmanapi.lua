@@ -4,9 +4,11 @@ local process = require("process")
 local fs = require("filesystem")
 local shell = require("shell")
 local unicode = require("unicode")
+local fileutil = require("fileutil")
 
 local pacmanApi = {}
 
+local modem
 local internet
 local wget
 local gitHubBaseAddress = "https://raw.githubusercontent.com/"
@@ -22,24 +24,31 @@ local function isEmpty(table)
 end
 
 local function getInternet()
-  if not component.isAvailable("internet") then
+  if component.isAvailable("internet") then
+    internet = require("internet")
+    wget = loadfile("/bin/wget.lua")
+  elseif component.isAvailable("modem") and fileutil then
+    modem = component.modem
+  else
     error("This program requires an internet card to run.")
   end
-
-  internet = require("internet")
-  wget = loadfile("/bin/wget.lua")
 end
 
 local function getFileContent(url)
   local content = ""
-  local result, response = pcall(internet.request, url)
 
-  if not result or not response then
-    error(string.format("File %s can not be downloaded: %s", url, response))
-  end
+  if internet then
+    local result, response = pcall(internet.request, url)
 
-  for chunk in response do
-    content = content .. chunk
+    if not result or not response then
+      error(string.format("File %s can not be downloaded: %s", url, response))
+    end
+
+    for chunk in response do
+      content = content .. chunk
+    end
+  else
+    content = fileutil.downloadRemoteFile(url)
   end
 
   return content
@@ -157,10 +166,16 @@ end
 
 local function fileDownloadInternal(serverFilePath, localFilePath, installedFile)
   print(string.format("Download %s starting...", serverFilePath))
-  local result, response, reason = pcall(wget, "-qf", serverFilePath, localFilePath)
 
-  if not result or not response then
-    error(string.format("File %s can not be downloaded: %s", serverFilePath, reason))
+  if internet then
+    local result, response, reason = pcall(wget, "-qf", serverFilePath, localFilePath)
+
+    if not result or not response then
+      error(string.format("File %s can not be downloaded: %s", serverFilePath, reason))
+    end
+  else
+    local content = getFileContent(serverFilePath)
+    fileutil.saveDataFile(localFilePath, installedFile, content)
   end
 
   table.insert(installedFile, localFilePath)
@@ -285,7 +300,7 @@ local function installInternal(packageName, forceInstall, fullForceInstall, upda
     for _, dependence in pairs(package.dependencies) do
       local packagesDependence = pacmanApi.listPackages(dependence)
       local dependencePackage = packagesDependence[dependence]
-      
+
       if not dependencePackage or dependencePackage.status == "Not Installe" then
         print(string.format("Package [%s] is not installed.", dependence))
         pacmanApi.install(dependence, forceInstall, fullForceInstall)

@@ -53,12 +53,16 @@ local function filedownload(senderAddress, port, url)
     local chunks, numberOfChunks = splitByChunk(data, maxPacketSize)
 
     modem.send(senderAddress, port, "START_FILE_DOWNLOAD", numberOfChunks)
-
-    for index, chunk in pairs(chunks) do
-      modem.send(senderAddress, port, "CHUNK_DOWNLOAD", index, chunk)
+    
+    for chunkIndex = 1, numberOfChunks do
+      local eventName, _, _, _, _, _, _  = event.pull(20, "modem_message", nil, senderAddress, port, nil, "SEND_CHUNK", chunkIndex)
+      
+      if not eventName then
+        error("The client did not respond.")
+      end
+      
+      modem.send(senderAddress, port, "CHUNK_DOWNLOAD", chunkIndex, chunks[chunkIndex])
     end
-
-    modem.send(senderAddress, port, "END_FILE_DOWNLOAD")
   else
     modem.send(senderAddress, port, "FILE_DOWNLOAD", data)
   end
