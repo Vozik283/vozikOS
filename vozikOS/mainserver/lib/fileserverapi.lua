@@ -43,7 +43,7 @@ local function splitByChunk(text, chunkSize)
 end
 
 local function filedownload(senderAddress, port, url)
-  internet = getInternet()
+  getInternet()
   local data = getFileContent(url)
 
   local maxPacketSize = modem.maxPacketSize() - 100
