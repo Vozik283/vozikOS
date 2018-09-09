@@ -57,7 +57,7 @@ local function getFileSystem()
 
   for address, type in pairs(component.list("file")) do
     local fs = component.proxy(address)
-    Print(string.format(" %-25.25s   %-10s   %-25s",fs.getLabel(), fs.slot, fs.address))
+    print(string.format(" %-25.25s   %-10s   %-25s",fs.getLabel(), fs.slot, fs.address))
     table.insert(fsHint, fs.getLabel())
     allFS[fs.getLabel()] = fs
   end
