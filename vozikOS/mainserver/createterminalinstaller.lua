@@ -119,11 +119,22 @@ diskDriver.setLabel("TerminalInstal")
 local serverConfig = {}
 serverConfig.address = modem.address
 
+print("Creating server.cfg")
 saveFile("/", "server.cfg", serverConfig)
+
+print("Creating clientterminalinstall.lua")
 saveFile("/", "clientterminalinstall.lua", getFileContent("https://raw.githubusercontent.com/Vozik283/vozikOS/master/vozikOS/clientterminal/clientterminalinstall.lua"))
+
+print("Creating pacmanapi.lua")
 saveFile("/", "pacmanapi.lua", getFileContent("https://raw.githubusercontent.com/Vozik283/vozikOS/master/vozikOS/packagemanager/lib/pacmanapi.lua"))
+
+print("Creating fileutil.lua")
 saveFile("/", "fileutil.lua", getFileContent("https://raw.githubusercontent.com/Vozik283/vozikOS/master/vozikOS/basiclib/fileutil.lua"))
+
+print("Creating serverports.lua")
 saveFile("/", "serverports.lua", getFileContent("https://raw.githubusercontent.com/Vozik283/vozikOS/master/vozikOS/mainserver/lib/serverports.lua"))
+
+print("Creating is done.")
 
 
 
