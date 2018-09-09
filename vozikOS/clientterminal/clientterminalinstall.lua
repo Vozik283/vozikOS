@@ -73,7 +73,16 @@ local function readFile(path, fileName)
       error("Error while trying to read file " .. filePath .. ": " .. reason)
     end
 
-    local content = diskDriver.read(file, "*a")
+    local content = ""
+    
+    repeat
+      local chunk = diskDriver.read(file, 500)
+
+      if chunk then
+        content = content .. chunk
+      end
+    until( chunk ~= nil )
+    
     diskDriver.close(file)
 
     if not content then
