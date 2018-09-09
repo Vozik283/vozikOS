@@ -43,13 +43,13 @@ function fileutil.saveDataFile(datafolderPath, fileName, content)
   if not file then
     error("Error while trying to save file " .. dataFilePath .. ": " .. reason)
   end
-  
+
   if type(content) == "string" then
     file:write(content)
   else
     file:write(serial.serialize(content))
   end
-  
+
   file:close()
 end
 
@@ -59,13 +59,16 @@ function fileutil.downloadRemoteFile(url)
   if(fs.exists("/usr/etc/server.cfg")) then
     local serverConfig = fileutil.readDataFile("/usr/etc", "server.cfg")
     local mainServer = serverConfig["mainServer"]
-  
-     modem.send(mainServer.address, serverports.fileServer, "DOWNLOAD", url)
+
+    modem.send(mainServer.address, serverports.fileServer, "DOWNLOAD", url)
+    print(mainServer.address, serverports.fileServer, "DOWNLOAD", url)
   else
     modem.broadcast(serverports.fileServer, "DOWNLOAD", url)
   end
-  
+
   local eventName, receiverAddress, senderAddress, port, distance, command, data = event.pull(20, "modem_message", nil, nil, nil, serverports.fileServer)
+
+  print(eventName, receiverAddress, senderAddress, port, distance, command, data)
 
   local fileContent
 

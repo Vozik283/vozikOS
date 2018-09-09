@@ -2,6 +2,7 @@ local component = require("component")
 local fs = require("filesystem")
 local pacmanApi = require("pacmanapi")
 local fileutil = require("fileutil")
+local serial = require("serialization")
 
 local modem
 local diskDriver

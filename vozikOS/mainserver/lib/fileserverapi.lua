@@ -48,6 +48,8 @@ local function filedownload(senderAddress, port, url)
 
   local maxPacketSize = modem.maxPacketSize() - 100
   local dataSize = string.len(maxPacketSize)
+  
+  print(senderAddress)
 
   if dataSize > maxPacketSize then
     local chunks, numberOfChunks = splitByChunk(data, maxPacketSize)
@@ -64,6 +66,7 @@ local function filedownload(senderAddress, port, url)
       modem.send(senderAddress, port, "CHUNK_DOWNLOAD", chunkIndex, chunks[chunkIndex])
     end
   else
+    print("one file")
     modem.send(senderAddress, port, "FILE_DOWNLOAD", data)
   end
 end
