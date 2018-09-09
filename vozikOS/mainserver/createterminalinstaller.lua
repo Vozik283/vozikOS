@@ -58,20 +58,20 @@ local function getFileSystem()
   for address, type in pairs(component.list("file")) do
     local fs = component.proxy(address)
     print(string.format(" %-25.25s   %-10s   %-25s",fs.getLabel(), fs.slot, fs.address))
-    table.insert(fsHint, fs.getLabel())
-    allFS[fs.getLabel()] = fs
+    table.insert(fsHint, fs.address)
+    allFS[fs.address] = fs
   end
 
   print("")
-  term.write("Select Target filesystem: ")
-  local label = text.trim(term.read(fsHint, false, nil, nil))
+  term.write("Select Target file system address: ")
+  local address = text.trim(term.read(fsHint, false, nil, nil))
   print("")
 
-  if not label or not allFS[label] then
+  if not address or not allFS[address] then
     error("Unknown file system.\n")
   end
 
-  diskDriver = allFS[label];
+  diskDriver = allFS[address];
 end
 
 local function saveFile(path, fileName, content)
