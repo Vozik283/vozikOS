@@ -60,27 +60,37 @@ local function getRedstone()
   redstone = redstones[address];
 end
 
+local function tableLength(table)
+  local count = 0
+
+  for _ in pairs(table) do
+    count = count + 1
+  end
+
+  return count
+end
+
 local function getMotionSensors()
   local w, h = gpu.getResolution()
   
   print("Approach to motion sensors and then press <Enter>: ")
   print("")
-  print(string.format(" %-25.25s   %-10s   %-10s   %-10s   %-25s", "Sensor Address", "RelativeX", "RelativeY", "RelativeZ", "Entity Name"))
+  print(string.format(" %-40.40s   %-25s   %-25s   %-25s   %-25s", "Sensor Address", "RelativeX", "RelativeY", "RelativeZ", "Entity Name"))
   print(string.rep(unicode.char(0x0336), w))
   local next = true
 
   while next do
-    local eventName, address, relativeX, relativeY, relativeZ, entityName = event.pullMultiple("key_up", "motion")
+    local eventName, address, relativeX, relativeY, relativeZ, entityName = event.pullMultiple("key_down", "motion")
 
-    if eventName == "key_up" and keyboard.keys.enter == relativeY then
+    if eventName == "key_down" and keyboard.keys.enter == relativeY then
       next = false
     elseif eventName == "motion" and not motionSensors[address]  then
-      print(string.format(" %-25.25s   %-10s   %-10s   %-10s   %-25s", address, relativeX, relativeY, relativeZ, entityName))
+      print(string.format(" %-40.40s   %-25s   %-25s   %-25s   %-25s", address, relativeX, relativeY, relativeZ, entityName))
       motionSensors[address] = component.proxy(address)
     end
   end
 
-  if #motionSensors == 0 then
+  if tableLength(motionSensors) == 0 then
     error("No motion sensor was selected.\n")
   end
 end
