@@ -35,7 +35,7 @@ local function getRedstone()
   print("Door configuration starting...")
   print("")
 
-  print(string.format(" %-25.25s   %-10s", "Address", "Slot"))
+  print(string.format(" %-40.40s   %-10s", "Address", "Slot"))
   print(string.rep(unicode.char(0x0336), w))
 
   local redstoneHint = {}
@@ -43,7 +43,7 @@ local function getRedstone()
 
   for address, type in pairs(component.list("redstone")) do
     local red = component.proxy(address)
-    print(string.format(" %-25.25s   %-10s", red.address, red.slot))
+    print(string.format(" %-40.40s   %-10s", red.address, red.slot))
     table.insert(redstoneHint, red.address)
     redstones[red.address] = red
   end
@@ -61,6 +61,8 @@ local function getRedstone()
 end
 
 local function getMotionSensors()
+  local w, h = gpu.getResolution()
+  
   print("Approach to motion sensors and then press <Enter>: ")
   print("")
   print(string.format(" %-25.25s   %-10s   %-10s   %-10s   %-25s", "Sensor Address", "RelativeX", "RelativeY", "RelativeZ", "Entity Name"))
