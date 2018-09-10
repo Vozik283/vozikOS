@@ -39,6 +39,9 @@ local function splitByChunk(text, chunkSize)
 end
 
 local function main()
+if #{} == 0 then
+  print("pepa")
+end
 print(type({}))
 for i=1,10 do print(i) end
   local t = "012345678911"

@@ -55,7 +55,7 @@ local function getFileSystem()
   print(string.format(" %-25.25s   %-10s   %-25s", "Label", "Slot", "Address"))
   print(string.rep(unicode.char(0x0336), w))
 
-  for address, type in pairs(component.list("file")) do
+  for address, type in pairs(component.list("filesystem")) do
     local fs = component.proxy(address)
     print(string.format(" %-25.25s   %-10s   %-25s",fs.getLabel(), fs.slot, fs.address))
     table.insert(fsHint, fs.address)
