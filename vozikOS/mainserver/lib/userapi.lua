@@ -12,18 +12,12 @@ local usersDB = "users.svd"
 
 local modem = component.modem
 
-local function getData()
+local function getPasswordHash(password)
   if not component.isAvailable("data") then
     error("This program requires an data card to run.")
   end
-
-  return component.data
-end
-
-local data = getData()
-
-local function getPasswordHash(password)
-  return data.sha256(password)
+  
+  return component.data.sha256(password)
 end
 
 function userapi.getUserList()
