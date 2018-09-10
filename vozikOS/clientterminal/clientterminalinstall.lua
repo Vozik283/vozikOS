@@ -3,6 +3,7 @@ local fs = require("filesystem")
 local pacmanApi = require("pacmanapi")
 local fileutil = require("fileutil")
 local serial = require("serialization")
+local computer = require("computer")
 
 local modem
 local diskDriver
@@ -45,7 +46,7 @@ local function readFile(path, fileName)
     end
 
     local content = ""
-    
+
     repeat
       local chunk = diskDriver.read(file, 500)
 
@@ -53,7 +54,7 @@ local function readFile(path, fileName)
         content = content .. chunk
       end
     until( chunk ~= nil )
-    
+
     diskDriver.close(file)
 
     if not content then
@@ -80,3 +81,6 @@ if not result then
   if reason then io.stderr:write(reason .. "\n") end
   return
 end
+
+os.sleep(3)
+computer.shutdown(true)

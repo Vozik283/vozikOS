@@ -35,7 +35,7 @@ local function getRedstone()
   print("Door configuration starting...")
   print("")
 
-  print(string.format(" %-25.25s   %-10s   %-25s", "Label", "Slot", "Address"))
+  print(string.format(" %-25.25s   %-10s", "Address", "Slot"))
   print(string.rep(unicode.char(0x0336), w))
 
   local redstoneHint = {}
@@ -43,7 +43,7 @@ local function getRedstone()
 
   for address, type in pairs(component.list("redstone")) do
     local red = component.proxy(address)
-    print(string.format(" %-25.25s   %-10s   %-25s",red.getLabel(), red.slot, red.address))
+    print(string.format(" %-25.25s   %-10s", red.address, red.slot))
     table.insert(redstoneHint, red.address)
     redstones[red.address] = red
   end
@@ -100,7 +100,7 @@ if doorName:len() < 1 then
   error("Invalid door name: " .. doorName)
 end
 
-redstone.setLabel(doorName)
+--redstone.setLabel(doorName)
 
 print("")
 print("Adding door configuration to door.cfg")
