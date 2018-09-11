@@ -23,6 +23,9 @@ end
 
 local pacmanApi = require("pacmanapi")
 
+local result, response, reason = pcall(wget, "-f", "https://raw.githubusercontent.com/Vozik283/vozikOS/master/vozikOS/basiclib/fileutil.lua")
+local result, response, reason = pcall(wget, "-f", "https://raw.githubusercontent.com/Vozik283/vozikOS/master/vozikOS/mainserver/lib/serverports.lua")
+
 local result, reason = pcall(pacmanApi.install, 'pacman', false, true)
 
 if not result then
@@ -32,3 +35,5 @@ if not result then
 end
 
 fs.remove("pacmanapi.lua")
+fs.remove("fileutil.lua")
+fs.remove("serverports.lua")

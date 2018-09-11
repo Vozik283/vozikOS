@@ -301,7 +301,7 @@ local function installInternal(packageName, forceInstall, fullForceInstall, upda
       local packagesDependence = pacmanApi.listPackages(dependence)
       local dependencePackage = packagesDependence[dependence]
 
-      if not dependencePackage or dependencePackage.status == "Not Installe" then
+      if not dependencePackage or dependencePackage.status == "Not Installed" then
         print(string.format("Package [%s] is not installed.", dependence))
         pacmanApi.install(dependence, forceInstall, fullForceInstall)
       elseif dependencePackage.status == "Obsolate" then

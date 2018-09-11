@@ -56,7 +56,7 @@ end
 function fileutil.downloadRemoteFile(url)
   modem.open(serverports.fileServer)
 
-  if(fs.exists("/usr/etc/server.cfg")) then
+  if fs.exists("/usr/etc/server.cfg") then
     local serverConfig = fileutil.readDataFile("/usr/etc", "server.cfg")
     local mainServer = serverConfig["mainServer"]
 

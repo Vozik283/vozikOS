@@ -151,5 +151,5 @@ elseif action == "remove" then
   removeUser(userName)
 else
   io.stderr:write("Unknown option.\n")
-  io.stderr:write("Write \"man pacman\" for help.\n")
+  io.stderr:write("Write \"man user\" for help.\n")
 end
